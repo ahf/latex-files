@@ -1,0 +1,153 @@
+\ProvidesPackage{ahf}[2008/12/22 version 0.2 by Alexander Færøy]
+\NeedsTeXFormat{LaTeX2e}
+
+%%
+%% Optional Packages
+%%
+\DeclareOption{algorithm}{
+    \RequirePackage{algorithm}
+    \RequirePackage{algorithmic}
+}
+
+\DeclareOption{fixme}{
+    \RequirePackage[draft,nomargin,inline,marginclue]{fixme}
+
+    \newcommand{\TODO}[1]{\fixme[inline]{#1}}
+}
+
+\DeclareOption{danish}{
+    \PassOptionsToPackage{danish}{babel}
+}
+
+\DeclareOption{english}{
+    \PassOptionsToPackage{english}{babel}
+}
+
+\ProcessOptions
+
+%%
+%% Other Packages
+%%
+\RequirePackage[utf8x]{inputenc}
+\RequirePackage{ucs}
+\RequirePackage[pdftex]{hyperref}
+%\RequirePackage{memhfixc}
+\RequirePackage[usenames,dvipsnames]{color}
+\RequirePackage{listings}
+\RequirePackage{enumerate}
+\RequirePackage{ulem}
+\RequirePackage{graphicx}
+
+%%
+%% Fonts
+%%
+\IfFileExists{MinionPro.sty}{
+    \RequirePackage{MinionPro}
+}{
+    \PackageWarning{ahf}{Unable to find Minion Pro font.}
+}
+
+\IfFileExists{MnSymbol.sty}{
+    \RequirePackage{MnSymbol}
+}{
+    \PackageWarning{ahf}{Unable to find Minion Pro Symbol font.}
+}
+
+%%
+%% Author
+%%
+\author{\href{mailto:ahf@0x90.dk}{Alexander Færøy}}
+
+%%
+%% Links
+%%
+\hypersetup{
+    urlcolor=black,
+    colorlinks=true,
+    citecolor=black,
+    linkcolor=black,
+    pdfauthor={Alexander Færøy}
+}
+
+%%
+%% Listings
+%%
+\lstset{
+    numbers=left,
+    numberstyle=\scriptsize\color{Gray},
+    basicstyle=\scriptsize\ttfamily,
+    keywordstyle=\scriptsize\bfseries,
+    identifierstyle=\scriptsize\color{black},
+    commentstyle=\scriptsize\color{Gray},
+    stringstyle=\scriptsize\color{Gray},
+    breaklines=true,
+    showstringspaces=false
+}
+
+\lstnewenvironment{inputsource}[1]{
+    \lstset{language={#1}}
+}{}
+
+\newcommand{\inputsourcefile}[2]{\lstinputlisting[language={#2}]{#1}}
+
+%%
+%% Laziness
+%%
+\renewcommand{\t}[1]{\texttt{#1}}
+\renewcommand{\i}[1]{\textit{#1}}
+\renewcommand{\b}[1]{\textbf{#1}}
+\newcommand{\e}[1]{\emph{#1}}
+
+%%
+%% Environments
+%%
+\newenvironment{centerfigure}{
+    \begin{figure}\begin{center}
+}{
+    \end{center}\end{figure}
+}
+
+%%
+%% Sets
+%%
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+%%
+%% Frontpage
+%%
+\def\thickhrulefill{\leavevmode \leaders \hrule height 1pt\hfill \kern \z@}
+\renewcommand{\maketitle}{
+\begin{titlepage}
+    \let\footnotesize\small
+    \let\footnoterule\relax
+    \parindent \z@
+    \reset@font
+    \null\vfil
+    \hrule height 3pt
+    \vskip 20\p@
+    \begin{flushright}
+      \huge
+      \strut \textsf{\@title} \par
+      \vskip 20\p@
+    \end{flushright}
+%    \begin{flushright}
+%      \large
+%          \begin{tabular}[t]{c}%
+%            \textsf{\@author}
+%          \end{tabular}\par
+%    \end{flushright}
+    \vskip 1\p@
+    \hrule height 3pt
+    \begin{flushright}
+        \strut \small \textsf{\@author}\par
+        \strut \small \textsf{\@date} \par
+    \end{flushright}
+    \vskip 60\p@
+    \vfil\null
+  \end{titlepage}
+  \setcounter{footnote}{0}
+}
